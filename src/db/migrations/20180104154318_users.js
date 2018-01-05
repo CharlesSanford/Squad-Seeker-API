@@ -3,20 +3,23 @@
 if (!process.env.NODE_ENV) { throw new Error('NODE_ENV not set') }
 
 exports.up = function(knex, Promise) {
-    return knex.schema.createTable('notes', function(table) {
+    return knex.schema.createTable('users', function(table) {
         table.increments('id').primary()
-        table.integer('userId')
-        table.string('title')
-        table.text('content')
-        table.string('ipAddress')
-        table.timestamp('updatedAt').nullable()
-        table.timestamp('createdAt').defaultTo(knex.fn.now())
+        table
+            .string('steamId')
+            .notNullable()
+            .unique()
+        table
+            .string('lobbyId')
+        // table.timestamp('updatedAt').nullable()
+        // table.timestamp('createdAt').defaultTo(knex.fn.now())
     })
 }
 
 exports.down = function(knex, Promise) {
     //We never want to drop tables in production
     if (process.env.NODE_ENV !== 'production') {
-        return knex.schema.dropTableIfExists('notes')
+        return knex.schema.dropTableIfExists('users')
     }
 }
+

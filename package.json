@@ -1,8 +1,8 @@
 {
-  "name": "koa-vue-notes-api",
-  "version": "1.2.7",
-  "description": "A SPA using Koa as the backend and Vue as the frontend.",
-  "author": "John Datserakis",
+  "name": "squadseeker-api",
+  "version": "0.0.1",
+  "description": "",
+  "author": "Charles Sanford",
   "private": true,
   "scripts": {
     "watch": "NODE_ENV=development nodemon app.js --exec",
@@ -12,8 +12,8 @@
     "start-production": "NODE_ENV=production pm2 start ecosystem.json",
     "clean": "npm cache clean --force"
   },
-  "license": "MIT",
-  "homepage": "https://github.com/johndatserakis/koa-vue-notes-api#readme",
+  "license": "",
+  "homepage": "",
   "dependencies": {
     "@sendgrid/mail": "6.0.0",
     "bcrypt": "^1.0.2",

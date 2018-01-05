@@ -10,8 +10,7 @@ import ratelimit from 'koa-ratelimit'
 import redis from 'ioredis'
 
 //Routes
-import userActionsRouter from './routes/userActions'
-import notesRouter from './routes/notes'
+import userRouter from './routes/users'
 
 //Initialize app
 const app = new Koa()
@@ -78,9 +77,7 @@ app.use(userAgent)
 app.use(bodyParser({ enableTypes: ['json'] }))
 
 //For router
-app.use(userActionsRouter.routes())
-app.use(userActionsRouter.allowedMethods())
-app.use(notesRouter.routes())
-app.use(notesRouter.allowedMethods())
+app.use(userRouter.routes())
+app.use(userRouter.allowedMethods())
 
 export default app
