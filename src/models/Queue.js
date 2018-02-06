@@ -1,19 +1,19 @@
 import db from '../db/db'
 
-class User {
+class Queue {
     constructor(data) {
         if (!data) {
             return
         }
         this.id = data.id
         this.steamId = data.steamId
-        this.lobbyId = data.lobbyId
+        this.size = data.size
     }
 
 
     async all() {
         try {
-            return await db('users')
+            return await db('queue')
                 .select('*')
         } catch (error) {
             console.log(error)
@@ -24,7 +24,7 @@ class User {
     async find(id) {
         try {
             console.log('id',id)
-            return await db('users')
+            return await db('queue')
                 .select('*')
                 .where({ id: id })
             if (!result) return {}
@@ -36,24 +36,9 @@ class User {
         }
     }
 
-    async findBySteamId(steamId) {
-        try {
-            console.log('steamId',steamId)
-            return await db('users')
-                .select('*')
-                .where({ steamId: steamId })
-            if (!result) return {}
-            console.log(this.constructor(result))
-            this.constructor(result)
-        } catch (error) {
-            console.log(error)
-            throw new Error('ERROR')
-        }
-    }
-
     async store() {
         try {
-            return await db('users').insert(this)
+            return await db('queue').insert(this)
         } catch (error) {
             console.log(error)
             throw new Error('ERROR')
@@ -62,7 +47,7 @@ class User {
 
     async save() {
         try {
-            return await db('users')
+            return await db('queue')
                 .update(this)
                 .where({ id: this.id })
         } catch (error) {
@@ -73,7 +58,7 @@ class User {
 
     async destroy(request) {
         try {
-            return await db('users')
+            return await db('queue')
                 .delete()
                 .where({ id: this.id })
         } catch (error) {
@@ -88,7 +73,7 @@ class User {
 async function findById(id) {
     try {
         //console.log(id)
-        return db('users')
+        return db('queue')
             .select('*')
             .where({ id: id })
     } catch (error) {
@@ -98,4 +83,4 @@ async function findById(id) {
 }
 
 
-export { User, findById }
+export { Queue, findById }

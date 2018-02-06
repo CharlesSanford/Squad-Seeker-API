@@ -11,6 +11,7 @@ import redis from 'ioredis'
 
 //Routes
 import userRouter from './routes/users'
+import queueRouter from './routes/queue'
 
 //Initialize app
 const app = new Koa()
@@ -79,5 +80,7 @@ app.use(bodyParser({ enableTypes: ['json'] }))
 //For router
 app.use(userRouter.routes())
 app.use(userRouter.allowedMethods())
+app.use(queueRouter.routes())
+app.use(queueRouter.allowedMethods())
 
 export default app
