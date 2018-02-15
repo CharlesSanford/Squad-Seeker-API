@@ -29,7 +29,7 @@ var connection = {
     password: process.env.DB_PASSWORD,
     database: process.env.DB_DATABASE + '_development',
 };
-console.log(connection)
+//console.log(connection)
 
 var io = socket(server);
 io.on('connection', function(socket){
@@ -41,6 +41,10 @@ io.on('connection', function(socket){
 
     socket.on('user-added-to-queue', function(data) {
         io.sockets.emit('user-added-to-queue', data)
+    })
+
+    socket.on('lobby-set-for-users', function(data) {
+        io.sockets.emit('lobby-set-for-users', data)
     })
 })
 

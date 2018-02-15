@@ -12,7 +12,10 @@ const queueSchema = joi.object({
         .required(),
     size: joi
         .number()
-        .integer()
+        .integer(),
+    game: joi
+        .string()
+        .required()
 })
 
 class QueueController {
@@ -57,11 +60,12 @@ class QueueController {
 
         //Attach logged in queue
         const queue = new Queue(request)
+        console.log(queue)
 
 
         //Validate the newly created queue
-        const validator = joi.validate(queue, queueSchema)
-        if (validator.error) ctx.throw(400, validator.error.details[0].message)
+        // const validator = joi.validate(queue, queueSchema)
+        // if (validator.error) ctx.throw(400, validator.error.details[0].message)
 
         try {
             let result = await queue.store()
@@ -115,6 +119,21 @@ class QueueController {
         try {
             await queue.destroy()
             ctx.body = { message: 'SUCCESS' }
+        } catch (error) {
+            console.log(error)
+            ctx.throw(400, 'INVALID_DATA')
+        }
+    }
+
+    async deleteBySteamId(ctx) {
+        const params = ctx.params
+        if (!params.steamId) ctx.throw(400, 'INVALID_DATA_NO_STEAM_ID')
+        const queue = new Queue(params)
+
+        try {
+            await queue.deleteBySteamId(params.steamId)
+            ctx.body = { message: 'SUCCESSFULLY_DELETED' }
+
         } catch (error) {
             console.log(error)
             ctx.throw(400, 'INVALID_DATA')

@@ -27,4 +27,8 @@ router.delete('/api/v1/queue/:id', async (ctx, next) => {
     await queueController.delete(ctx)
 })
 
+router.delete('/api/v1/queue/steam/:steamId', async (ctx, next) => {
+    await queueController.deleteBySteamId(ctx)
+})
+
 export default router

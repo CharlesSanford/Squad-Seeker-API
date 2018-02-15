@@ -12,6 +12,8 @@ import redis from 'ioredis'
 //Routes
 import userRouter from './routes/users'
 import queueRouter from './routes/queue'
+import lobbyRouter from './routes/lobby'
+
 
 //Initialize app
 const app = new Koa()
@@ -29,7 +31,7 @@ app.use(
             reset: 'Rate-Limit-Reset',
             total: 'Rate-Limit-Total',
         },
-        max: 100,
+        max: 10000,
     })
 )
 
@@ -82,5 +84,7 @@ app.use(userRouter.routes())
 app.use(userRouter.allowedMethods())
 app.use(queueRouter.routes())
 app.use(queueRouter.allowedMethods())
+app.use(lobbyRouter.routes())
+app.use(lobbyRouter.allowedMethods())
 
 export default app

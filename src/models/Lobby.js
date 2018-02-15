@@ -1,20 +1,18 @@
 import db from '../db/db'
 
-class Queue {
+class Lobby {
     constructor(data) {
         if (!data) {
             return
         }
-        this.id = data.id
-        this.steamId = data.steamId
+        this.lobbyId = data.lobbyId
         this.size = data.size
         this.game = data.game
     }
 
-
     async all() {
         try {
-            return await db('queue')
+            return await db('lobby')
                 .select('*')
         } catch (error) {
             console.log(error)
@@ -22,14 +20,14 @@ class Queue {
         }
     }
 
-    async find(id) {
+    async find(lobbyId) {
         try {
-            console.log('id',id)
-            return await db('queue')
+            //console.log('lobbyId',lobbyId)
+            return await db('lobby')
                 .select('*')
-                .where({ id: id })
+                .where({ lobbyId: lobbyId })
             if (!result) return {}
-            console.log(this.constructor(result))
+            //console.log(this.constructor(result))
             this.constructor(result)
         } catch (error) {
             console.log(error)
@@ -39,7 +37,7 @@ class Queue {
 
     async store() {
         try {
-            return await db('queue').insert(this)
+            return await db('lobby').insert(this)
         } catch (error) {
             console.log(error)
             throw new Error('ERROR')
@@ -48,9 +46,9 @@ class Queue {
 
     async save() {
         try {
-            return await db('queue')
+            return await db('lobby')
                 .update(this)
-                .where({ id: this.id })
+                .where({ lobbyId: this.lobbyId })
         } catch (error) {
             console.log(error)
             throw new Error('ERROR')
@@ -59,20 +57,9 @@ class Queue {
 
     async destroy(request) {
         try {
-            return await db('queue')
+            return await db('lobby')
                 .delete()
-                .where({ id: this.id })
-        } catch (error) {
-            console.log(error)
-            throw new Error('ERROR')
-        }
-    }
-
-    async deleteBySteamId(steamId) {
-        try {
-            return await db('queue')
-                .delete()
-                .where({ steamId: steamId })
+                .where({ lobbyId: this.lobbyId })
         } catch (error) {
             console.log(error)
             throw new Error('ERROR')
@@ -82,12 +69,12 @@ class Queue {
 
 }
 
-async function findById(id) {
+async function findById(lobbyId) {
     try {
-        //console.log(id)
-        return db('queue')
+        //console.log(lobbyId)
+        return db('lobby')
             .select('*')
-            .where({ id: id })
+            .where({ lobbyId: lobbyId })
     } catch (error) {
         console.log(error)
         throw new Error('ERROR')
@@ -95,4 +82,4 @@ async function findById(id) {
 }
 
 
-export { Queue, findById }
+export { Lobby, findById }

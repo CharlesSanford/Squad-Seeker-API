@@ -11,6 +11,7 @@ exports.up = function(knex, Promise) {
             .unique()
         table
             .string('lobbyId')
+            .references('lobbyId').inTable('lobby')
         // table.timestamp('updatedAt').nullable()
         // table.timestamp('createdAt').defaultTo(knex.fn.now())
     })
