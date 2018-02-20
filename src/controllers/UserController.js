@@ -11,8 +11,7 @@ const userSchema = joi.object({
         .string()
         .required(),
     lobbyId: joi
-        .number()
-        .integer()
+        
 })
 
 class UserController {
@@ -63,6 +62,23 @@ class UserController {
         try {
             //Find and show user
             let result = await user.findBySteamId(params.steamId)
+            ctx.body = result
+        } catch (error) {
+            console.log(error)
+            ctx.throw(400, 'INVALID_DATA')
+        }
+    }
+
+    async showByLobbyId(ctx) {
+        const params = ctx.params
+        if (!params.lobbyId) ctx.throw(400, 'INVALID_DATA_NO_STEAM_ID')
+
+        //Initialize user
+        const user = new User()
+
+        try {
+            //Find and show user
+            let result = await user.findByLobbyId(params.lobbyId)
             ctx.body = result
         } catch (error) {
             console.log(error)

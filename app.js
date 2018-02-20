@@ -46,6 +46,11 @@ io.on('connection', function(socket){
     socket.on('lobby-set-for-users', function(data) {
         io.sockets.emit('lobby-set-for-users', data)
     })
+
+    socket.on('user-left-lobby', function(data) {
+        io.sockets.emit('user-left-lobby', data)
+    })
+    
 })
 
 //Exporting the actual server here for testing availability

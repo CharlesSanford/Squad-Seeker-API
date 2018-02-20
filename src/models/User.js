@@ -51,6 +51,21 @@ class User {
         }
     }
 
+    async findByLobbyId(lobbyId) {
+        try {
+            console.log('lobbyId',lobbyId)
+            return await db('users')
+                .select('*')
+                .where({ lobbyId: lobbyId })
+            if (!result) return {}
+            console.log(this.constructor(result))
+            this.constructor(result)
+        } catch (error) {
+            console.log(error)
+            throw new Error('ERROR')
+        }
+    }
+
     async store() {
         try {
             return await db('users').insert(this)

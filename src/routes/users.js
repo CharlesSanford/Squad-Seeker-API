@@ -19,6 +19,10 @@ router.get('/api/v1/users/:id', async (ctx, next) => {
     await userController.show(ctx)
 })
 
+router.get('/api/v1/users/lobby/:lobbyId', async (ctx, next) => {
+    await userController.showByLobbyId(ctx)
+})
+
 router.get('/api/v1/users/steam/:steamId', async (ctx, next) => {
     await userController.showBySteamId(ctx)
 })

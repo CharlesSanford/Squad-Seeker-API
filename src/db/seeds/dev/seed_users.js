@@ -16,7 +16,7 @@ exports.seed = function(knex, Promise) {
             if (i === 0) {
                 let testUser = {
                 steamId: 'demoSteamId',
-                lobbyId: 12345
+                lobbyId: null
                 }
                 seedData.push(testUser)
                 continue
@@ -24,7 +24,7 @@ exports.seed = function(knex, Promise) {
 
             let testUser = {
             steamId: faker.internet.userName(),
-            lobbyId: faker.random.number()
+            lobbyId: null
             }
             seedData.push(testUser)
         }
