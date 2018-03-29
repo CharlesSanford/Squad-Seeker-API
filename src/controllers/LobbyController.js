@@ -4,12 +4,16 @@ import dateFormat from 'date-fns/format'
 import { Lobby } from '../models/Lobby'
 
 const lobbySchema = joi.object({
-    lobbyId: joi
+    id: joi
         .number()
         .integer(),
+    console: joi
+        .string()
+        .required(),
     size: joi
         .number()
-        .integer(),
+        .integer()
+        .required(),
     game: joi
         .string()
         .required()
@@ -37,14 +41,14 @@ class LobbyController {
 
     async show(ctx) {
         const params = ctx.params
-        if (!params.lobbyId) ctx.throw(400, 'INVALID_DATA_NO_ID')
+        if (!params.id) ctx.throw(400, 'INVALID_DATA_NO_ID')
 
         //Initialize lobby
         const lobby = new Lobby()
 
         try {
             //Find and show lobby
-            let result = await lobby.find(params.lobbyId)
+            let result = await lobby.find(params.id)
             ctx.body = result
         } catch (error) {
             console.log(error)
@@ -61,7 +65,7 @@ class LobbyController {
 
         try {
             let result = await lobby.store()
-            ctx.body = { message: 'SUCCESS', lobbyId: result }
+            ctx.body = { message: 'SUCCESS', id: result }
         } catch (error) {
             console.log(error)
             ctx.throw(400, 'INVALID_DATA')
@@ -73,12 +77,12 @@ class LobbyController {
         const request = ctx.request.body
 
         //Make sure they've specified a lobby
-        if (!params.lobbyId) ctx.throw(400, 'INVALID_DATA_NO_ID')
+        if (!params.id) ctx.throw(400, 'INVALID_DATA_NO_ID')
 
         //Find and set that lobby
         const lobby = new Lobby(params)
-        console.log('params.lobbyId',params.lobbyId)
-        let result = await lobby.find(params.lobbyId)
+        console.log('params.id',params.id)
+        let result = await lobby.find(params.id)
         if (!result) ctx.throw(400, 'INVALID_DATA')
         console.log('result',result)
 
@@ -101,11 +105,11 @@ class LobbyController {
 
     async delete(ctx) {
         const params = ctx.params
-        if (!params.lobbyId) ctx.throw(400, 'INVALID_DATA')
+        if (!params.id) ctx.throw(400, 'INVALID_DATA')
 
         //Find that lobby
         const lobby = new Lobby(params)
-        await lobby.find(params.lobbyId)
+        await lobby.find(params.id)
         if (!lobby) ctx.throw(400, 'INVALID_DATA')
 
         try {

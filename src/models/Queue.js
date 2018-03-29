@@ -6,7 +6,8 @@ class Queue {
             return
         }
         this.id = data.id
-        this.steamId = data.steamId
+        this.userId = data.userId
+        this.console = data.console
         this.size = data.size
         this.game = data.game
     }

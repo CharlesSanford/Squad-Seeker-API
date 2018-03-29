@@ -5,7 +5,8 @@ class Lobby {
         if (!data) {
             return
         }
-        this.lobbyId = data.lobbyId
+        this.id = data.id
+        this.console = data.console
         this.size = data.size
         this.game = data.game
     }
@@ -20,12 +21,12 @@ class Lobby {
         }
     }
 
-    async find(lobbyId) {
+    async find(id) {
         try {
-            //console.log('lobbyId',lobbyId)
+            //console.log('id',id)
             return await db('lobby')
                 .select('*')
-                .where({ lobbyId: lobbyId })
+                .where({ id: id })
             if (!result) return {}
             //console.log(this.constructor(result))
             this.constructor(result)
@@ -48,7 +49,7 @@ class Lobby {
         try {
             return await db('lobby')
                 .update(this)
-                .where({ lobbyId: this.lobbyId })
+                .where({ id: this.id })
         } catch (error) {
             console.log(error)
             throw new Error('ERROR')
@@ -59,7 +60,7 @@ class Lobby {
         try {
             return await db('lobby')
                 .delete()
-                .where({ lobbyId: this.lobbyId })
+                .where({ id: this.id })
         } catch (error) {
             console.log(error)
             throw new Error('ERROR')
@@ -69,12 +70,12 @@ class Lobby {
 
 }
 
-async function findById(lobbyId) {
+async function findById(id) {
     try {
-        //console.log(lobbyId)
+        //console.log(id)
         return db('lobby')
             .select('*')
-            .where({ lobbyId: lobbyId })
+            .where({ id: id })
     } catch (error) {
         console.log(error)
         throw new Error('ERROR')

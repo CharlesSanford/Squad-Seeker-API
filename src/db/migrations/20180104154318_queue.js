@@ -6,17 +6,21 @@ exports.up = function(knex, Promise) {
     return knex.schema.createTable('queue', function(table) {
         table.increments('id').primary()
         table
-            .string('steamId')
+            .integer('userId')
+            .unsigned()
             .notNullable()
             .unique()
-            .references('steamId').inTable('users')
+            .references('id').inTable('users')
+        table
+            .string('console')
+            .notNullable()
         table
             .integer('size')
             .notNullable()
         table
             .string('game')
             .notNullable()
-
+        // maybe use these later if problems arise with timing
         // table.timestamp('updatedAt').nullable()
         // table.timestamp('createdAt').defaultTo(knex.fn.now())
     })

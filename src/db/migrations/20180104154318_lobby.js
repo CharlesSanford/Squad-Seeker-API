@@ -4,12 +4,15 @@ if (!process.env.NODE_ENV) { throw new Error('NODE_ENV not set') }
 
 exports.up = function(knex, Promise) {
     return knex.schema.createTable('lobby', function(table) {
-        table.increments('lobbyId').primary()
+        table.increments('id').primary()
         table
             .integer('size')
             .notNullable()
         table
             .string('game')
+            .notNullable()
+        table
+            .string('console')
             .notNullable()
     })
 }

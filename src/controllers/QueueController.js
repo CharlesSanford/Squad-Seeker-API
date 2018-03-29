@@ -7,12 +7,17 @@ const queueSchema = joi.object({
     id: joi
         .number()
         .integer(),
-    steamId: joi
+    userId: joi
+        .number()
+        .integer()
+        .required(),
+    console: joi
         .string()
         .required(),
     size: joi
         .number()
-        .integer(),
+        .integer()
+        .required(),
     game: joi
         .string()
         .required()
