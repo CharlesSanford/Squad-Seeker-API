@@ -17,15 +17,15 @@ router.post('/api/v1/lobby', jwtMiddleware,  async (ctx, next) => {
     await lobbyController.create(ctx)
 })
 
-router.get('/api/v1/lobby/:lobbyId', jwtMiddleware,  async (ctx, next) => {
+router.get('/api/v1/lobby/:id', jwtMiddleware,  async (ctx, next) => {
     await lobbyController.show(ctx)
 })
 
-router.put('/api/v1/lobby/:lobbyId', jwtMiddleware,  async (ctx, next) => {
+router.put('/api/v1/lobby/:id', jwtMiddleware,  async (ctx, next) => {
     await lobbyController.update(ctx)
 })
 
-router.delete('/api/v1/lobby/:lobbyId', jwtMiddleware,  async (ctx, next) => {
+router.delete('/api/v1/lobby/:id', jwtMiddleware,  async (ctx, next) => {
     await lobbyController.delete(ctx)
 })
 

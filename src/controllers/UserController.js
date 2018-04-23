@@ -543,11 +543,18 @@ class UserController {
         const params = ctx.params
         //Make sure they've specified a user
         if (!params.id) ctx.throw(400, 'INVALID_DATA_NO_ID')
-        //Find and set that user
+        
+        //Initialize user
         const user = new User(params)
-        console.log('params.id',params.id)
-        return await user.find(params.id)
-        if (!result) ctx.throw(400, 'INVALID_DATA')
+
+        try {
+            //Find and set that user
+            let result = await user.find(params.id)
+            ctx.body = result
+        } catch (error) {
+            console.log(error)
+            ctx.throw(400, 'INVALID_DATA')
+        }
     }
 
     // async index(ctx) {
