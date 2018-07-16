@@ -62,6 +62,13 @@ router.get('/api/v1/user/:id', jwtMiddleware, async (ctx, next) => {
     await userController.fetch(ctx)
 })
 
+router.get('/api/v1/user', jwtMiddleware, async (ctx, next) => {
+    await userController.index(ctx)
+})
+
+router.get('/api/v1/user/usernames/:id', jwtMiddleware, async (ctx, next) => {
+    await userController.fetchUsernames(ctx)
+})
 
 // router.get('/api/v1/users', async (ctx, next) => {
 //     await userController.index(ctx)

@@ -66,7 +66,7 @@ const userSchemaResetPassword = joi.object({
 //         .string()
 //         .required(),
 //     lobbyId: joi
-        
+
 // })
 
 class UserController {
@@ -419,7 +419,7 @@ class UserController {
                     resetUrl: resetUrlCustom,
                 },
             }
-            
+
             // Let's only send the email if we're not testing
             if (process.env.NODE_ENV !== 'testing') {
                 await sgMail.send(emailData)
@@ -543,7 +543,7 @@ class UserController {
         const params = ctx.params
         //Make sure they've specified a user
         if (!params.id) ctx.throw(400, 'INVALID_DATA_NO_ID')
-        
+
         //Initialize user
         const user = new User(params)
 
@@ -554,6 +554,30 @@ class UserController {
         } catch (error) {
             console.log(error)
             ctx.throw(400, 'INVALID_DATA')
+        }
+    }
+
+    async index(ctx) {
+        let query = ctx.request.query
+        console.log(query)
+        let lid = parseInt(query.lobbyId)
+        console.log(lid)
+        if (query.lobbyId) {
+            try {
+                let result = await db('users')
+                    .where({ lobbyId: lid }).select('*')
+            ctx.body = result
+            } catch (error) {
+                ctx.throw(400, 'INVALID_DATA')
+            }
+        } else {
+            try {
+                let result = await db('users')
+                    .select('*')
+                ctx.body = result
+            } catch (error) {
+                ctx.throw(400, 'INVALID_DATA')
+            }
         }
     }
 
